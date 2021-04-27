@@ -1,13 +1,13 @@
 def jump_search (array, num)
   size = array.length
-  step = Math.sqrt(size)
+  step = Math.sqrt(size).floor
 
   prev = 0
 
-  while array[[step,size].min] < num do
+  while array[([step,size].min)-1] < num do
     prev = step
 
-    step += Math.sqrt(size)
+    step += Math.sqrt(size).floor
 
     return -1 if prev >= size
   end
