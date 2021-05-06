@@ -1,34 +1,34 @@
-def count_sort (array, range)
-  count_array = Array.new(range+1, 0)
+module RubyGem
+  module Algorithms
+    module Sort
+      class CountingSort
+        def self.sort (array, range)
+          count_array = Array.new(range + 1, 0)
 
-  array.each do |item|
-    count_array[item] += 1
+          array.each do |item|
+            count_array[item] += 1
+          end
+
+          (1...count_array.size).each do |index|
+            count_array[index] = count_array[index] + count_array[index - 1]
+          end
+
+          result = Array.new(array.size)
+          for i in 0...array.size do
+            count_array[array[i]] -= 1
+            result[count_array[array[i]]] = array[i]
+          end
+
+          result
+        end
+      end
+    end
   end
-
-  (1...count_array.size).each do |index|
-    count_array[index] = count_array[index] + count_array[index-1]
-  end
-
-  result = Array.new(array.size)
-  for i in 0...array.size do
-    count_array[array[i]] -= 1
-    result[count_array[array[i]]] = array[i]
-  end
-
-  result
 end
 
 array_size = 12
 range = 15
 array = Array.new(array_size) { rand(1..range) }
-
-p "Array: #{array} "
-
-result = count_sort(array, range)
-
-p "Array ordenado: #{result}"
-
-p "#Input: #{array} => Output: #{result}"
 
 #Input: [6, 14, 5, 12, 5, 4, 15, 14, 5, 11, 2, 10] => Output: [2, 4, 5, 5, 5, 6, 10, 11, 12, 14, 14, 15]
 #Input: [15, 8, 1, 8, 6, 9, 6, 10, 3, 13, 11, 3] => Output: [1, 3, 3, 6, 6, 8, 8, 9, 10, 11, 13, 15]
