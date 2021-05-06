@@ -1,40 +1,31 @@
-def maximumSum(arr, n, k)
+module RubyGem
+  module Algorithms
+    module Greedy
+      class MaximizeArray
 
-  (1..k + 1).each do |i|
-    min = +2147483647
-    index = -1
+        def self.maximumSum(a, k)
+          arr = a.sort
+          sum = 0
+          i = 0
 
-    (0..n-1).each do |j|
-      if (arr[j] < min)
-        min = arr[j]
-        index = j
+          while k > 0
+            if arr[i] >= 0
+              k = 0
+            else
+              arr[i] = (-1) * arr[i]
+              k -= 1
+            end
+            i += 1
+          end
+
+          (0..arr.length - 1).each do |j|
+            sum += arr[j]
+          end
+
+          sum
+        end
       end
     end
-
-    break if min == 0
-    arr[index] = -arr[index]
   end
-
-  sum = 0
-  (0..n-1).each do |i|
-    sum += arr[i]
-  end
-
-  sum
 end
 
-array = [-2, 0, 5, -1, 2]
-k = 4
-n = array.size
-
-puts "Array => #{array}"
-puts "k: #{k}"
-
-result = maximumSum(array, n, k)
-
-
-puts "Resultado: #{result}"
-
-#Array => [-2, 0, 5, -1, 2]
-#k: 4
-#Resultado: 10
